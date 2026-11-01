@@ -1,0 +1,4 @@
+project_name: AcoustiSense
+log_level: INFO
+data_dir: datasets
+artifacts_dir: artifacts

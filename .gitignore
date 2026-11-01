@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Environment and local settings
+.env
+.env.*
+!.env.example
+
+# Datasets and generated outputs
+datasets/*
+!datasets/README.md
+!datasets/raw/
+datasets/raw/*
+!datasets/raw/.gitkeep
+!datasets/processed/
+datasets/processed/*
+!datasets/processed/.gitkeep
+artifacts/*
+!artifacts/.gitkeep
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.joblib
+*.pkl
+*.safetensors
+*.h5
+*.hdf5
+*.tflite
+
+# Logs, caches, and temporary files
+*.log
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
