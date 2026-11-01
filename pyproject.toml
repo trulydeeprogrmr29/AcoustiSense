@@ -9,9 +9,13 @@ description = "Research-oriented acoustic anomaly detection for industrial machi
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "matplotlib>=3.9,<4",
+    "numpy>=1.26,<3",
     "pydantic-settings>=2.6,<3",
     "python-dotenv>=1,<2",
     "PyYAML>=6,<7",
+    "soundfile>=0.13,<1",
+    "streamlit>=1.57,<2",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

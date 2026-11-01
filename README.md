@@ -8,11 +8,19 @@ useful life or exact future failure times.
 
 ## Current status
 
-The project foundation and DCASE 2021 Task 2 dataset inspection utility are in
-place. The utility inventories extracted recordings and ZIP members without
-decoding or extracting audio and can export a shared CSV manifest. No dataset
-is downloaded in the repository. Model architecture/training, preprocessing,
-and Streamlit UI are future work.
+The local Streamlit prototype supports Fan/Pump selection and in-memory WAV
+inspection: file validation, recording metadata, audio playback, a
+peak-preserving waveform view, and an exploratory spectrogram. Uploads are
+limited to 25 MB and are not written to disk or logged.
+
+**Model integration is pending.** The trained model and approved preprocessing
+configuration are not available yet. Analysis controls are disabled and the
+application does not produce predictions or simulated health values.
+
+The DCASE 2021 Task 2 dataset inspection utility remains available for local
+file inventory and extracted-directory manifest export. Dataset acquisition
+and GPU training will use Google Colab; no dataset is downloaded or extracted
+by this application.
 
 ## Prototype architecture
 
@@ -46,6 +54,8 @@ docs/                     Architecture and dataset protocol
 experiments/              Experiment notes and configuration
 scripts/                  Dataset inspection and maintenance tools
 src/acoustisense/         Installable application package and shared settings
+  audio/                  In-memory WAV inspection and chart data
+  ui/                     Streamlit application
 tests/                    Automated tests
 ```
 
@@ -69,8 +79,8 @@ instructions are present.
 ## Setup (Windows PowerShell)
 
 Requirements: Python 3.11 or newer. Python 3.13.1 is the local development
-interpreter; the project does not require GPU or CUDA for dataset inspection.
-From the project root:
+interpreter. The local prototype uses CPU-only WAV inspection; it does not
+install PyTorch, Librosa, or CUDA. From the project root:
 
 ```powershell
 py -3.13 -m venv .venv
@@ -86,8 +96,19 @@ blocked by PowerShell's execution policy, use the venv interpreter directly:
 .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 ```
 
-Copy `.env.example` to `.env` to override application settings. This dataset
-inspection utility uses only the Python standard library.
+Copy `.env.example` to `.env` to override application settings.
+
+## Run the Streamlit prototype
+
+```powershell
+python -m streamlit run src/acoustisense/ui/streamlit_app.py
+```
+
+The dashboard offers Fan/Pump selection, WAV upload, metadata and signal
+measurements, playback, a selected-channel waveform, and an exploratory
+spectrogram. The spectrogram is not represented as the eventual model input.
+Warnings for sample rate, channel count, or duration are informational and do
+not reject otherwise valid WAV recordings.
 
 ## Inspect the dataset
 
@@ -108,7 +129,7 @@ ZIP inventory is not exported as a training manifest: archive member paths do
 not guarantee files exist as extracted paths. The script does not read audio
 samples, download data, or extract archives.
 
-## Run and test
+## Run tests and lint
 
 ```powershell
 acoustisense --check
@@ -128,7 +149,8 @@ python -m ruff check .
    methods; train on Colab and record reproducible metrics.
 5. **Noise/domain robustness** — evaluate source/target conditions without
    leaking test information into training or threshold calibration.
-6. **Prototype application** — integrate local CPU inference in Streamlit.
+6. **Prototype application** — integrate the approved model and exact
+   preprocessing in Streamlit after its inference contract is finalized.
 
 Do not fabricate results, treat approximate dataset counts as exact, or
 describe synthetic tests as experiments on industrial recordings. The system's
